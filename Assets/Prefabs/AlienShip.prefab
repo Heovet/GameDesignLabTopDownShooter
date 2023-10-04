@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 1259063206090526323}
   - component: {fileID: 2679187971191437873}
   - component: {fileID: 2732096060390744364}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AlienShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2827945848311186281}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b11a62a7a0df3794088e297a3a215ae7, type: 3}
+  m_Script: {fileID: 11500000, guid: 5973b331d81b7994abe87f4f0d2515eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRadius: 3
@@ -392,7 +392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8997641503300998434}
   - component: {fileID: 2037715178318756515}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HomingMissiles : MonoBehaviour
+public class HomingMissilesAwareness : MonoBehaviour
 {
     public bool awareOfEnemy { get; private set; }
     public Vector2 dirToEnemy { get; private set; }
-    [SerializeField]
-    private float detectionRadius;
 
+    [SerializeField] private float detectionRadius;
     private Transform enemy;
 
     private void Awake()
@@ -19,10 +18,10 @@ public class HomingMissiles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 enemyToPlayer = enemy.position - transform.position;
-        dirToEnemy = enemyToPlayer.normalized;
+        Vector2 missileToEnemy = enemy.position - transform.position;
+        dirToEnemy = missileToEnemy.normalized;
 
-        if (enemyToPlayer.magnitude <= detectionRadius)
+        if (missileToEnemy.magnitude <= detectionRadius)
         {
             awareOfEnemy = true;
         }

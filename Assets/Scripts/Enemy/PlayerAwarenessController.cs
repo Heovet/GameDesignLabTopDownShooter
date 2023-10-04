@@ -22,7 +22,7 @@ public class PlayerAwarenessController : MonoBehaviour
         Vector2 enemyToPlayer = player.position - transform.position;
         dirToPlayer = enemyToPlayer.normalized;
 
-        if(enemyToPlayer.magnitude <= detectionRadius)
+        if (enemyToPlayer.magnitude <= detectionRadius)
         {
             awareOfPlayer = true;
         }
