@@ -10,30 +10,33 @@ public class HomingMissileMovement : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
 
-    private Rigidbody2D rb;
+    [SerializeField]
     private HomingMissilesAwareness awareness;
+
+/*    [SerializeField]
+    private GameObject homingMissile;*/
+
+    private Rigidbody2D rb;
     private Vector2 targetDir;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        awareness = GetComponent<HomingMissilesAwareness>();
-        targetDir = transform.up;
     }
 
     private void FixedUpdate()
     {
-        targetPlayer();
-        rotateToTarget();
-        updateV();
-    }
-
-    private void targetPlayer()
-    {
         if (awareness.awareOfEnemy)
         {
-            targetDir = awareness.dirToEnemy;
+            targetEnemy();
+            rotateToTarget();
+            updateV();
         }
+    }
+
+    private void targetEnemy()
+    {
+        targetDir = awareness.dirToEnemy;
     }
 
     private void rotateToTarget()
@@ -48,5 +51,4 @@ public class HomingMissileMovement : MonoBehaviour
     {
         rb.velocity = transform.up * speed;
     }
-
 }

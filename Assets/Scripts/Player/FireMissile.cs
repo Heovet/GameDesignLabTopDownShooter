@@ -7,8 +7,11 @@ using UnityEngine.InputSystem;
 public class FireMissile : MonoBehaviour
 {
     [SerializeField] private GameObject missilePrefab;
+    [SerializeField] private GameObject homingMissilePrefab;
     [SerializeField] private float missileV;
     [SerializeField] private float reloadTime;
+
+    public bool homingMissileUpgraded;
 
     private bool firing;
     private bool fireSingle;
@@ -30,10 +33,21 @@ public class FireMissile : MonoBehaviour
 
     private void fireMissile()
     {
-        GameObject missile = Instantiate(missilePrefab, transform.position, transform.rotation);
-        Rigidbody2D missileRb = missile.GetComponent<Rigidbody2D>();
-        missileRb.velocity = missileV * transform.up;
-        missile.transform.parent = transform;
+        if (!homingMissileUpgraded)
+        {
+            GameObject missile = Instantiate(missilePrefab, transform.position, transform.rotation);
+            Rigidbody2D missileRb = missile.GetComponent<Rigidbody2D>();
+            missileRb.velocity = missileV * transform.up;
+            missile.transform.parent = transform;
+        }
+        else
+        {
+            GameObject missile = Instantiate(homingMissilePrefab, transform.position, transform.rotation);
+            Rigidbody2D missileRb = missile.GetComponent<Rigidbody2D>();
+            missileRb.velocity = missileV * transform.up;
+            missile.transform.parent = transform;
+        }
+        
     }
 
     private void OnFire(InputValue inVal)

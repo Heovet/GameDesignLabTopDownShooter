@@ -5,37 +5,47 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float speed;
-
-    [SerializeField]
-    private float rotationSpeed;
-
-    [SerializeField]
-    private float screenBorder;
-
-    private Rigidbody2D rb;
+    [Header("WASD Movement")]
+    [SerializeField] private float speed;
+    [SerializeField] private float rotationSpeed;
     private Vector2 movementIn;
     private Vector2 smoothMoveIn;
     private Vector2 smoothMoveV;
+
+    [Header("Screen Boarder")]
+    [SerializeField] private float screenBorder;
     private Camera screen;
+
+    [Header("Dashing Movement")]
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashLength;
+    [SerializeField] private float dashCooldown;
+    private float dashCounter;
+    private float dashCoolCounter;
+    private TrailRenderer trailRenderer;
+
+    private Rigidbody2D rb;
+    private float currSpeed;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         screen = Camera.main;
+        trailRenderer = GetComponent<TrailRenderer>();
+        currSpeed = speed;
     }
 
     private void FixedUpdate()
     {
         setPlayerV();
         rotateToInput();
+        dashManager();
     }
 
     private void setPlayerV()
     {
         smoothMoveIn = Vector2.SmoothDamp(smoothMoveIn, movementIn, ref smoothMoveV, 0.1f);
-        rb.velocity = smoothMoveIn * speed;
+        rb.velocity = smoothMoveIn * currSpeed;
 
         preventMovingOffScreen();
     }
@@ -54,6 +64,36 @@ public class PlayerMovement : MonoBehaviour
     private void OnMove(InputValue iv)
     {
         movementIn = iv.Get<Vector2>();
+    }
+
+    private void dashManager()
+    {
+        if(dashCounter > 0)
+        {
+            dashCounter -= Time.deltaTime;
+            if(dashCounter < 0)
+            {
+                currSpeed = speed;
+                dashCoolCounter = dashCooldown;
+                trailRenderer.enabled = false;
+            }
+        }
+
+        if (dashCoolCounter > 0)
+        {
+            dashCoolCounter -= Time.deltaTime;
+        }
+    }
+
+    private void OnDash(InputValue iv)
+    {
+/*        Debug.Log("Dash!");*/
+        if(dashCoolCounter <= 0 && dashCoolCounter <= 0)
+        {
+            currSpeed = dashSpeed;
+            dashCounter = dashLength;
+            trailRenderer.enabled = true;
+        }
     }
 
     private void preventMovingOffScreen()
