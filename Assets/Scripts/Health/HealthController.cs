@@ -62,5 +62,10 @@ public class HealthController : MonoBehaviour
         }
     }
 
+    public void kill()
+    {
+        currHealth = 0;
+        onDeath.Invoke();
+    }
     
 }

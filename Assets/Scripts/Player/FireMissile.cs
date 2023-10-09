@@ -58,4 +58,13 @@ public class FireMissile : MonoBehaviour
             fireSingle = true;
         }
     }
+
+    public void unlockHomingMissile(ScoreController scoreController)
+    {
+        if (scoreController.homingMissile)
+        {
+            homingMissileUpgraded = true;
+        }
+
+    }
 }

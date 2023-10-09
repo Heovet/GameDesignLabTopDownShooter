@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashLength;
     [SerializeField] private float dashCooldown;
+    public UnityEvent dashed;
+    public bool canDash;
     private float dashCounter;
     private float dashCoolCounter;
     private TrailRenderer trailRenderer;
@@ -33,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         screen = Camera.main;
         trailRenderer = GetComponent<TrailRenderer>();
         currSpeed = speed;
+        canDash = false;
     }
 
     private void FixedUpdate()
@@ -78,7 +82,6 @@ public class PlayerMovement : MonoBehaviour
                 trailRenderer.enabled = false;
             }
         }
-
         if (dashCoolCounter > 0)
         {
             dashCoolCounter -= Time.deltaTime;
@@ -88,11 +91,12 @@ public class PlayerMovement : MonoBehaviour
     private void OnDash(InputValue iv)
     {
 /*        Debug.Log("Dash!");*/
-        if(dashCoolCounter <= 0 && dashCoolCounter <= 0)
+        if(dashCoolCounter <= 0 && dashCoolCounter <= 0 &&canDash)
         {
             currSpeed = dashSpeed;
             dashCounter = dashLength;
             trailRenderer.enabled = true;
+            dashed.Invoke();
         }
     }
 
@@ -109,5 +113,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
         }
+    }
+
+    public void unlockDash(ScoreController scoreController)
+    {
+        if(scoreController.canDash)
+        {
+            canDash = true;
+        }
+
     }
 }
