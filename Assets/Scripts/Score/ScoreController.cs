@@ -11,13 +11,36 @@ public class ScoreController : MonoBehaviour
     public bool homingMissile { get; private set; }
 
     [Header("Unlock Upgrades")]
-    [SerializeField] public int dashUnlock;
-    [SerializeField] public int homingMissileUnlock;
+    [SerializeField] private int dashUnlock;
+    [SerializeField] private int homingMissileUnlock;
 
-    public void addScore(int amt)
+    private PlayerStatManager statManager;
+
+    public void Awake()
     {
-        Score += amt;
-        scoreUpdate.Invoke();
+        Debug.Log("ScoreController Awake");
+        statManager = GetComponent<PlayerStatManager>();
+        if (statManager != null)
+        {
+            Debug.Log("ScoreController Score is:" + statManager.score.ToString());
+            Debug.Log("ScoreController LoadedPreviously is:" + statManager.loadedPreviously.ToString());
+            if (statManager.loadedPreviously)
+            {
+                Score = statManager.score;
+                scoreUpdate.Invoke();
+            }
+            else
+            {
+                Score = 0;
+            }
+        }
+        else
+        {
+            Debug.Log("ScoreController cannot find statManager");
+        }
+    }
+    public void Update()
+    {
         if (Score >= dashUnlock)
         {
             canDash = true;
@@ -27,10 +50,16 @@ public class ScoreController : MonoBehaviour
             homingMissile = true;
         }
     }
+    public void addScore(int amt)
+    {
+        Score += amt;
+        statManager.score = Score;
+        scoreUpdate.Invoke();
+    }
 
     public void Reset()
     {
-        Score = 0;
+/*        Debug.Log("ScoreReset!");*/
         scoreUpdate.Invoke();
     }
 }

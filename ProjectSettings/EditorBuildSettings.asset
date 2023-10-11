@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/BaseGame.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/SecretMarioStarship.unity
+    guid: 9e903b16baa60764487b5e7157ce0a4c
+  - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: f2b3f28940ee8604ba93cb06ee4904e4
   m_configObjects: {}

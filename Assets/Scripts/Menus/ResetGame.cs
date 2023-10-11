@@ -7,6 +7,7 @@ public class ResetGame : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     private HealthController playerHC;
+    [SerializeField] private CarryOverPlayerStats stats;
 
     public void Awake()
     {
@@ -14,6 +15,7 @@ public class ResetGame : MonoBehaviour
     }
     public void ResetTheGame()
     {
+        stats.loadedPreviously = false;
         if (playerHC.remainingHealthPercent >0)
         {
             playerHC.kill();
@@ -21,7 +23,7 @@ public class ResetGame : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Loader.load(Loader.Scene.BaseGame);
         }
 /*        Debug.Log("GameReset!");*/
 
@@ -29,6 +31,6 @@ public class ResetGame : MonoBehaviour
     IEnumerator resetGame()
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Loader.load(Loader.Scene.BaseGame);
     }
 }

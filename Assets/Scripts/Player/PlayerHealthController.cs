@@ -4,7 +4,7 @@ using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HealthController : MonoBehaviour
+public class PlayerHealthController : MonoBehaviour
 {
     [SerializeField]
     private float currHealth;
@@ -17,29 +17,6 @@ public class HealthController : MonoBehaviour
     public UnityEvent onDeath;
     public UnityEvent onDmg;
     public UnityEvent onHealthChange;
-
-    private PlayerStatManager statManager;
-    private bool isPlayer = false;
-
-    private void Awake()
-    {
-        statManager = GetComponent<PlayerStatManager>();
-        if (statManager != null)
-        {
-            isPlayer = true;
-            if (statManager.loadedPreviously)
-            {
-                maxHealth = statManager.maxHealth;
-                currHealth = statManager.currHealth;
-                onHealthChange.Invoke();
-            }
-            else
-            {
-                statManager.maxHealth = maxHealth;
-                statManager.currHealth = currHealth;
-            }
-        }
-    }
 
     public void takeDamage(float damageAmt)
     {
@@ -54,7 +31,6 @@ public class HealthController : MonoBehaviour
         }
         currHealth -= damageAmt;
         onHealthChange.Invoke();
-        if (isPlayer) { statManager.currHealth = currHealth; }
 
         if (currHealth < 0)
         {
@@ -79,7 +55,6 @@ public class HealthController : MonoBehaviour
         }
         currHealth += healing;
         onHealthChange.Invoke();
-        if (isPlayer) { statManager.currHealth = currHealth; }
 
         if (currHealth >= maxHealth)
         {
