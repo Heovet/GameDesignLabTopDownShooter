@@ -26,7 +26,6 @@ public class ResetGame : MonoBehaviour
             Loader.load(Loader.Scene.BaseGame);
         }
 /*        Debug.Log("GameReset!");*/
-
     }
     IEnumerator resetGame()
     {

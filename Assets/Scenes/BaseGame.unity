@@ -1617,7 +1617,6 @@ MonoBehaviour:
         m_CallState: 2
   dashUnlock: 5
   homingMissileUnlock: 10
-  statManager: {fileID: 1997405547}
 --- !u!1 &707715344285503178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,8 +2427,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593e7ce061c049b44a9655cfecd11aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currHealth: 1000
-  maxHealth: 1000
+  currHealth: 150
+  maxHealth: 150
   onDeath:
     m_PersistentCalls:
       m_Calls:
