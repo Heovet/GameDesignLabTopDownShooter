@@ -17,7 +17,7 @@ public class Missile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<AlienShipMovement>())
+        if (collision.GetComponent<AlienShipMovement>() || collision.GetComponent<ChasePlayerState>())
         {
             HealthController enemyHC = collision.GetComponent<HealthController>();
             enemyHC.takeDamage(10);

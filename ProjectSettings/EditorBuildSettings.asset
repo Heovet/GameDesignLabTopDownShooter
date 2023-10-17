@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: f2b3f28940ee8604ba93cb06ee4904e4
+  - enabled: 1
+    path: Assets/Scenes/BossFightLab5.unity
+    guid: 4a0c8aa7320ca594699e71f168052517
   m_configObjects: {}

@@ -2,31 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HomingMissileDestroy : MonoBehaviour
+public class EnemyMissile : MonoBehaviour
 {
+    [SerializeField]
+    private float speed;
+
     private Camera m_Camera;
-    public bool toDestroy { get; private set; }
+    private Rigidbody2D rb;
 
     private void Awake()
     {
         m_Camera = Camera.main;
-        toDestroy = false;
+        rb = GetComponent<Rigidbody2D>();
+        rb.velocity = transform.up * speed;
     }
-
+    
     private void Update()
     {
         DestroyOffScreen();
-        transform.position = transform.parent.position;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<AlienShipMovement>() || collision.GetComponent<ChasePlayerState>())
+        if (collision.GetComponent<ScoreController>() != null)
         {
-            HealthController enemyHC = collision.GetComponent<HealthController>();
-            enemyHC.takeDamage(10);
+            HealthController playerHC = collision.GetComponent<HealthController>();
+            playerHC.takeDamage(10);
             /*            Destroy(collision.gameObject);*/
-/*            Destroy(gameObject);*/
-            toDestroy = true;
+            Destroy(gameObject);
         }
     }
 
@@ -36,8 +38,7 @@ public class HomingMissileDestroy : MonoBehaviour
 
         if (screenPosition.x < 0 || screenPosition.x > m_Camera.pixelWidth || screenPosition.y < 0 || screenPosition.y > m_Camera.pixelHeight)
         {
-/*            Destroy(gameObject);*/
-            toDestroy = true;
+            Destroy(gameObject);
         }
     }
 }

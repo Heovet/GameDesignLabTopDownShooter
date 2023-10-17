@@ -22,8 +22,8 @@ public class ScoreController : MonoBehaviour
         statManager = GetComponent<PlayerStatManager>();
         if (statManager != null)
         {
-            Debug.Log("ScoreController Score is:" + statManager.score.ToString());
-            Debug.Log("ScoreController LoadedPreviously is:" + statManager.loadedPreviously.ToString());
+/*            Debug.Log("ScoreController Score is:" + statManager.score.ToString());
+            Debug.Log("ScoreController LoadedPreviously is:" + statManager.loadedPreviously.ToString());*/
             if (statManager.loadedPreviously)
             {
                 Score = statManager.score;

@@ -6,21 +6,20 @@ using UnityEngine.SceneManagement;
 
 public static class Loader
 {
-    private static Action onLoaderCallback;
-
     private class LoadingMonoBehaviour: MonoBehaviour { }
     private static AsyncOperation loadingAsyncOperation;
+    private static Action onLoaderCallback;
     public enum Scene
     {
         Loading,
         SecretMarioStarship,
-        BaseGame
+        BaseGame,
+        BossFightLab5
     }
     public static void load(Scene scene)
     {
         //Set callback action to load target scene
-        onLoaderCallback = () =>
-        {
+        onLoaderCallback = () => {
             GameObject loadingGameObject = new GameObject("Loading Game Object");
             loadingGameObject.AddComponent<LoadingMonoBehaviour>().StartCoroutine(LoadSceneAsync(scene));
         };
@@ -31,8 +30,8 @@ public static class Loader
     private static IEnumerator LoadSceneAsync(Scene scene)
     {
         yield return null;
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene.ToString());
-        while (!asyncOperation.isDone)
+        loadingAsyncOperation = SceneManager.LoadSceneAsync(scene.ToString());
+        while (!loadingAsyncOperation.isDone)
         {
             yield return null;
         }
@@ -52,7 +51,7 @@ public static class Loader
 
     public static void LoaderCallback()
     {
-        //Triggered after the first update to let teh scene refresh
+        //Triggered after the first update to let the scene refresh
         //Execute the loaderCallBack action to load the target scene
         if (onLoaderCallback != null)
         {

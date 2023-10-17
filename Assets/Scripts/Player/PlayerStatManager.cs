@@ -16,8 +16,8 @@ public class PlayerStatManager : MonoBehaviour
         maxHealth = stats.maxHealth;
         loadedPreviously = stats.loadedPreviously;
         score = stats.score;
-        Debug.Log("PlayerStatManager Score is: " + score.ToString());
-        Debug.Log("PlayerStatManager loadedPreviously is: " + loadedPreviously.ToString());
+/*        Debug.Log("PlayerStatManager Score is: " + score.ToString());
+        Debug.Log("PlayerStatManager loadedPreviously is: " + loadedPreviously.ToString());*/
     }
 
     public void Update()
